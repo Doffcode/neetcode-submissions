@@ -1,0 +1,22 @@
+class Solution:
+    def majorityElement(self, nums: List[int]) -> List[int]:
+        ret = []
+        count = defaultdict(int)
+        for n in nums:
+            count[n] += 1
+            if len(count)<=2:
+                continue
+            new_count = defaultdict(int)
+            for n,c in count.items():
+                if c>1:
+                    new_count[n] = c-1
+            count =  new_count
+        
+        for n,c in count.items():
+            count = 0
+            for i in nums:
+                if i == n:
+                    count+=1
+            if count >(len(nums))//3:
+                ret.append(n)
+        return ret
